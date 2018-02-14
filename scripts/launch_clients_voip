@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/D-ITG-2.8.1-r1023/bin/ITGSend -T UDP -a 10.0.0.2 -rp 13000 -c 160 -C 50 -t 50000 &
