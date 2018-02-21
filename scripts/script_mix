@@ -1,0 +1,4 @@
+#!/bin/bash
+
+python python_launch.py &
+python python_launch_voip.py &

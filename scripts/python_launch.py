@@ -2,6 +2,7 @@ import subprocess
 import time
 import numpy as np
 
+np.random.seed(2)
 s = np.random.poisson(1.0,53)
 print s
 for x in range(len(s)):
