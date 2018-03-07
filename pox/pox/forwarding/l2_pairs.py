@@ -34,7 +34,7 @@ SKYPE = 0.3
 table = {}
 D = {}
 IDthread = 1
-time_sleep = 5
+time_sleep = 0.2
 # To send out all ports, we can use either of the special ports
 # OFPP_FLOOD or OFPP_ALL.  We'd like to just use OFPP_FLOOD,
 # but it's not clear if all switches support this, so we make
@@ -115,7 +115,7 @@ def instalacion_regla_ip(event,eth_packet,dst_port,src_port):
     l4_packet = ip_packet.payload
     msg.match.tp_dst = l4_packet.srcport
     msg.match.tp_src = l4_packet.dstport
-    msg.hard_timeout = 52
+    #msg.hard_timeout = 52
   msg.priority = 10000
   msg.actions.append(of.ofp_action_output(port = event.port))
   event.connection.send(msg)
@@ -133,7 +133,7 @@ def instalacion_regla_ip(event,eth_packet,dst_port,src_port):
     l4_packet = ip_packet.payload
     msg.match.tp_src = l4_packet.srcport
     msg.match.tp_dst = l4_packet.dstport
-    msg.hard_timeout = 52
+    #msg.hard_timeout = 52
   msg.priority = 10000
   msg.actions.append(of.ofp_action_output(port = dst_port))
   event.connection.send(msg)
@@ -205,7 +205,7 @@ def _handle_PacketIn (event):
 	    elif eth_packet.payload.protocol == pkt.ipv4.UDP_PROTOCOL:
 	      log.debug("PROTOCOLO UDP")
 	    log.debug("PUERTO DESTINO: %s" % (tcp_udp_port))
-	    if tcp_udp_port == 12000 or tcp_udp_port == 13000:
+	    if tcp_udp_port >= 1024 and tcp_udp_port < 4024:
 	      log.debug("APP1 o APP2")
 	      if str(eth_packet.payload.srcip) in swpo.switch_host[str(event.connection.dpid)].keys():
 	        dst_port_rl = -1
